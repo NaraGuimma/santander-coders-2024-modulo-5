@@ -1,0 +1,256 @@
+
+version: 2
+
+sources:
+  - name: ADA
+    schema: PUBLIC
+    tables:
+      - name: calendar
+        description: "Calendario da propriedade na plataforma"
+        columns:
+          - name: LISTING_ID
+            description: "Chave secundária da tabela listing"
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('listing')
+                  field: id
+
+          - name: DATE
+            description: "Data específica no calendário"
+            tests:
+              - not_null
+
+          - name: AVAILABLE
+            description: "Informa se a propriedade está disponível ou não"
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['t', 'f']
+
+          - name: PRICE
+            description: "Valor da diária na propriedade"
+            tests:
+              - not_null
+              # - expression_is_true:
+              #     expression: "TRY_TO_NUMBER(PRICE) IS NOT NULL" 
+              # - expression_is_true:
+              #     expression: "TRY_TO_NUMBER(PRICE) >= 0" 
+              # - expression_is_true:
+              #     expression: "REGEXP_LIKE(PRICE, '^[0-9]+(\\.[0-9]{2})?$')"  
+
+          - name: ADJUSTED_PRICE
+            description: "Valor ajustado da diária na propriedade"
+            tests:
+              - not_null
+              # - expression_is_true:
+              #     expression: "REGEXP_LIKE(ADJUSTED_PRICE, '^[0-9]+(\\.[0-9]{2})?$')"
+
+          - name: MINIMUM_NIGHTS
+            description: "Número de noites mínimas na propriedade"
+
+          - name: MAXIMUM_NIGHTS
+            description: "Número de noites máximas na propriedade"
+            # tests:
+            #   - expression_is_true:
+            #       expression: "MAXIMUM_NIGHTS IS NULL OR (TRY_TO_NUMBER(MAXIMUM_NIGHTS) >= 1 AND TRY_TO_NUMBER(MAXIMUM_NIGHTS) <= 1125)"
+            #   - expression_is_true:
+            #       expression: "(MINIMUM_NIGHTS IS NULL OR MAXIMUM_NIGHTS IS NULL) OR (TRY_TO_NUMBER(MINIMUM_NIGHTS) < TRY_TO_NUMBER(MAXIMUM_NIGHTS))"  
+                                                                            
+      - name: reviews
+        description: "Reviews das pessoas que se hospedaram na propriedade"
+        columns:
+            - name: LISTING_ID
+              description: "Chave secundária da tabela listing"
+            - name: ID
+              description: "Id da review"
+              tests:
+                - not_null
+            - name: DATE
+              description: "Data da review"
+              tests:
+                - not_null
+            - name: REVIEWER_ID
+              description: "Id do usuário que deixou a review"
+              tests:
+                - not_null
+            - name: REVIEWER_NAME
+              description: "Nome do usuário que deixou a review"
+              tests:
+                - not_null
+            - name: COMMENTS
+              description: "Comentario deixado na review"
+      - name: listing
+        description: "Características e informações sobre todas as propriedades"
+        columns:
+          - name: id
+            description: "Identificador único da propriedade"
+            tests:
+              - not_null
+              - unique
+          - name: listing_url
+            description: "URL da propriedade"
+            tests:
+              - not_null
+          - name: scrape_id
+            description: "Identificador do scrape (raspagem)"
+            tests:
+              - not_null
+          - name: last_scraped
+            description: "Data da última raspagem da propriedade"
+            tests:
+              - not_null
+          - name: source
+            description: "Fonte da listagem (exemplo: AirBnb, etc.)"
+            tests:
+              - not_null
+          - name: name
+            description: "Nome da propriedade"
+            tests:
+              - not_null
+          - name: description
+            description: "Descrição da propriedade"
+          - name: neighborhood_overview
+            description: "Visão geral do bairro onde o anúncio está localizado"
+          - name: picture_url
+            description: "URL da imagem principal da propriedade"
+          - name: host_id
+            description: "Identificador único do anfitrião"
+            tests:
+              - not_null
+          - name: host_url
+            description: "URL do perfil do anfitrião"
+          - name: host_name
+            description: "Nome do anfitrião"
+          - name: host_since
+            description: "Data de início do anfitrião na plataforma"
+          - name: host_location
+            description: "Localização do anfitrião"
+          - name: host_about
+            description: "Informações adicionais sobre o anfitrião"
+          - name: host_response_time
+            description: "Tempo médio de resposta do anfitrião"
+          - name: host_response_rate
+            description: "Taxa de resposta do anfitrião"
+          - name: host_acceptance_rate
+            description: "Taxa de aceitação do anfitrião"
+          - name: host_is_superhost
+            description: "Indicador se o anfitrião é um superhost"
+          - name: host_thumbnail_url
+            description: "URL da miniatura do perfil do anfitrião"
+          - name: host_picture_url
+            description: "URL da foto de perfil do anfitrião"
+          - name: host_neighbourhood
+            description: "Bairro do anfitrião"
+          - name: host_listings_count
+            description: "Número de listagens do anfitrião"
+          - name: host_total_listings_count
+            description: "Número total de listagens do anfitrião"
+          - name: host_verifications
+            description: "Verificações do anfitrião"
+          - name: host_has_profile_pic
+            description: "Indicador se o anfitrião tem foto de perfil"
+          - name: host_identity_verified
+            description: "Indicador se a identidade do anfitrião foi verificada"
+          - name: neighbourhood
+            description: "Bairro da propriedade"
+          - name: neighbourhood_cleansed
+            description: "Bairro da propriedade limpo"
+          - name: neighbourhood_group_cleansed
+            description: "Grupo de bairros da propriedade limpo"
+          - name: latitude
+            description: "Latitude da propriedade"
+          - name: longitude
+            description: "Longitude da propriedade"
+          - name: property_type
+            description: "Tipo de propriedade da propriedade"
+          - name: room_type
+            description: "Tipo de quarto da propriedade"
+            tests:
+              - not_null
+          - name: accommodates
+            description: "Número de pessoas que o anúncio acomoda"
+            tests:
+              - not_null
+          - name: bathrooms
+            description: "Número de banheiros"
+          - name: bathrooms_text
+            description: "Texto descritivo sobre os banheiros"
+          - name: bedrooms
+            description: "Número de quartos"
+          - name: beds
+            description: "Número de camas"
+          - name: amenities
+            description: "Comodidades disponíveis no anúncio"
+          - name: price
+            description: "Preço da propriedade"
+            tests:
+              - not_null
+          - name: minimum_nights
+            description: "Número mínimo de noites para reserva"
+          - name: maximum_nights
+            description: "Número máximo de noites para reserva"
+          - name: minimum_minimum_nights
+            description: "Número mínimo de noites mínimas para reserva"
+          - name: maximum_minimum_nights
+            description: "Número máximo de noites mínimas para reserva"
+          - name: minimum_maximum_nights
+            description: "Número mínimo de noites máximas para reserva"
+          - name: maximum_maximum_nights
+            description: "Número máximo de noites máximas para reserva"
+          - name: minimum_nights_avg_ntm
+            description: "Média mínima de noites no mês"
+          - name: maximum_nights_avg_ntm
+            description: "Média máxima de noites no mês"
+          - name: calendar_updated
+            description: "Data de última atualização do calendário"
+          - name: has_availability
+            description: "Indicador de disponibilidade da propriedade"
+          - name: availability_30
+            description: "Disponibilidade nos próximos 30 dias"
+          - name: availability_60
+            description: "Disponibilidade nos próximos 60 dias"
+          - name: availability_90
+            description: "Disponibilidade nos próximos 90 dias"
+          - name: availability_365
+            description: "Disponibilidade ao longo do ano"
+          - name: calendar_last_scraped
+            description: "Data da última raspagem do calendário"
+          - name: number_of_reviews
+            description: "Número de avaliações"
+          - name: number_of_reviews_ltm
+            description: "Número de avaliações no último mês"
+          - name: number_of_reviews_l30d
+            description: "Número de avaliações nos últimos 30 dias"
+          - name: first_review
+            description: "Data da primeira avaliação"
+          - name: last_review
+            description: "Data da última avaliação"
+          - name: review_scores_rating
+            description: "Pontuação geral da propriedade"
+          - name: review_scores_accuracy
+            description: "Pontuação de precisão"
+          - name: review_scores_cleanliness
+            description: "Pontuação de limpeza"
+          - name: review_scores_checkin
+            description: "Pontuação de check-in"
+          - name: review_scores_communication
+            description: "Pontuação de comunicação"
+          - name: review_scores_location
+            description: "Pontuação de localização"
+          - name: review_scores_value
+            description: "Pontuação de valor"
+          - name: license
+            description: "Licença da propriedade"
+          - name: instant_bookable
+            description: "Indica se o anúncio é instantaneamente reservável"
+          - name: calculated_host_listings_count
+            description: "Número calculado de listagens do anfitrião"
+          - name: calculated_host_listings_count_entire_homes
+            description: "Número calculado de listagens do anfitrião que são casas inteiras"
+          - name: calculated_host_listings_count_private_rooms
+            description: "Número calculado de listagens do anfitrião que são quartos privados"
+          - name: calculated_host_listings_count_shared_rooms
+            description: "Número calculado de listagens do anfitrião que são quartos compartilhados"
+          - name: reviews_per_month
+            description: "Quantidade de reviews por mês"
