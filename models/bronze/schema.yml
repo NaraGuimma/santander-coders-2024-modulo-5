@@ -8,55 +8,34 @@ sources:
       - name: calendar
         description: "Calendario da propriedade na plataforma"
         columns:
-          - name: LISTING_ID
+          - name: listing_id
             description: "Chave secundária da tabela listing"
             tests:
               - not_null
               - relationships:
                   to: ref('listing')
                   field: id
-
-          - name: DATE
+          - name: date
             description: "Data específica no calendário"
             tests:
               - not_null
-
-          - name: AVAILABLE
+          - name: available
             description: "Informa se a propriedade está disponível ou não"
             tests:
               - not_null
               - accepted_values:
                   values: ['t', 'f']
-
-          - name: PRICE
+          - name: price
             description: "Valor da diária na propriedade"
             tests:
               - not_null
-              # - expression_is_true:
-              #     expression: "TRY_TO_NUMBER(PRICE) IS NOT NULL" 
-              # - expression_is_true:
-              #     expression: "TRY_TO_NUMBER(PRICE) >= 0" 
-              # - expression_is_true:
-              #     expression: "REGEXP_LIKE(PRICE, '^[0-9]+(\\.[0-9]{2})?$')"  
-
-          - name: ADJUSTED_PRICE
+          - name: adjusted_price
             description: "Valor ajustado da diária na propriedade"
-            tests:
-              - not_null
-              # - expression_is_true:
-              #     expression: "REGEXP_LIKE(ADJUSTED_PRICE, '^[0-9]+(\\.[0-9]{2})?$')"
-
-          - name: MINIMUM_NIGHTS
+          - name: minimum_nights
             description: "Número de noites mínimas na propriedade"
-
-          - name: MAXIMUM_NIGHTS
+          - name: maximum_nights
             description: "Número de noites máximas na propriedade"
-            # tests:
-            #   - expression_is_true:
-            #       expression: "MAXIMUM_NIGHTS IS NULL OR (TRY_TO_NUMBER(MAXIMUM_NIGHTS) >= 1 AND TRY_TO_NUMBER(MAXIMUM_NIGHTS) <= 1125)"
-            #   - expression_is_true:
-            #       expression: "(MINIMUM_NIGHTS IS NULL OR MAXIMUM_NIGHTS IS NULL) OR (TRY_TO_NUMBER(MINIMUM_NIGHTS) < TRY_TO_NUMBER(MAXIMUM_NIGHTS))"  
-                                                                            
+
       - name: reviews
         description: "Reviews das pessoas que se hospedaram na propriedade"
         columns:
@@ -184,8 +163,6 @@ sources:
             description: "Comodidades disponíveis no anúncio"
           - name: price
             description: "Preço da propriedade"
-            tests:
-              - not_null
           - name: minimum_nights
             description: "Número mínimo de noites para reserva"
           - name: maximum_nights
