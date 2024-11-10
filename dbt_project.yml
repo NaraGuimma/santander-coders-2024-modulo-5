@@ -38,4 +38,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   santander_coders_2024_modulo_5:
     bronze:
+      +materialized: view
+    silver:
+      +materialized: table
+    gold:
+      # +materialized: table
     
