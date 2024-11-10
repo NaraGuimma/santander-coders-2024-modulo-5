@@ -91,5 +91,3 @@ Processo de assegurar a qualidade e a precisão dos dados, geralmente utilizando
 
 ### Dashboard
 Interface de visualização de dados que exibe métricas e KPIs de forma interativa e visual, facilitando a análise e tomada de decisão.
-
-Este README fornece uma visão completa das etapas, ferramentas e termos principais deste projeto.
