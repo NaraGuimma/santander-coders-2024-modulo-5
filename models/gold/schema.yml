@@ -1,31 +1,26 @@
 models:
-  - name: cleaned_listing
+  - name: days_occupied_per_month
     columns:
-      - name: id
+      - name: listing_id
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
-      - name: host_id
+              column_type: number 
+      - name: neighbourhood
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
-      - name: days_as_host 
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number      
+              column_type: varchar
       - name: property_type
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: varchar
-      - name: review_scores_rating
+      - name: calendar_month
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number      
+              column_type: date    
       - name: price
         tests:
           - not_null
@@ -33,77 +28,63 @@ models:
               column_type: number
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
-              max_value: 1000000
+              max_value: 1000000000
+      - name: days_occupied
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: number
+
+  - name: monthly_host_revenue
+    columns:
+      - name: calendar_month
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date  
       - name: neighbourhood
         tests:
           - not_null
-
-  - name: cleaned_calendar
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: varchar                
+      - name: avg_revenue_per_host
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: number
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 1000000000
+  - name: monthly_neighborhood_analysis
     columns:
-      - name: listing_id
+      - name: neighbourhood
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
-      - name: calendar_date
+              column_type: varchar    
+      - name: property_type
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: date
-      - name: available
+              column_type: varchar        
+      - name: calendar_month
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: varchar
-          - dbt_expectations.expect_column_values_to_be_in_set:
-              value_set: ['f', 't']
-      - name: price
+              column_type: date  
+      - name: avg_price
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: number
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
-              max_value: 1000000
-      - name: minimum_nights
+              max_value: 1000000000
+      - name: avg_rating
         tests:
+          - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: number
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
-              max_value: 1000000
-      - name: maximum_nights
-        tests:
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
-          - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              max_value: 1000000
-
-  - name: cleaned_review
-    columns:
-      - name: listing_id
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
-      - name: id
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number              
-      - name: review_date
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: date
-      - name: reviewer_id
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: number
-      - name: comments
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: varchar
+              max_value: 100
