@@ -22,6 +22,9 @@ Este repositório documenta o processo de extração, replicação, processament
    - Receita mensal dos anfitriões.
    - Média de avaliações por bairro.
    - Preço mensal pago por lugares ocupados entre junho de 2024 e junho de 2025.
+  
+<img width="1205" alt="image" src="https://github.com/user-attachments/assets/961871e8-30fe-4d0b-9028-dda16e42ef60">
+
 
 ## Ferramentas Utilizadas e Como Criar Contas de Avaliação
 
@@ -51,10 +54,13 @@ Este repositório documenta o processo de extração, replicação, processament
 
 ### 4. **Great Expectations**
    - **Função**: Framework de validação e monitoramento da qualidade dos dados.
-   - **Conta de Avaliação**:
-     1. Acesse [Great Expectations](https://greatexpectations.io/) para baixar a versão open-source (não há versão em nuvem com trial no momento).
-     2. Siga as instruções para instalação local.
-   - **Configuração**: Usamos o Great Expectations para rodar testes de qualidade nos dados transformados, garantindo consistência e precisão antes de carregar os dados na camada gold.
+   - **Configuração**: Usamos o mesmo dentro do dbt por meio da instalação dentro do arquivo `packages.yml`
+
+```
+  - package: calogica/dbt_expectations
+    version: [">=0.6.0", "<0.7.0"]
+```
+     
 
 ### 5. **Domo**
    - **Função**: Plataforma de BI e visualização de dados que permite criar dashboards interativos.
