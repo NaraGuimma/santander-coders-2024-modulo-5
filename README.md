@@ -8,10 +8,17 @@ Este repositório documenta o processo de extração, replicação, processament
    
 2. **Ferramentas Utilizadas**:
    - **Airbyte** para extração de dados.
+<img width="941" alt="image" src="https://github.com/user-attachments/assets/7508e829-62a6-496b-a4a5-279921aa7daf">
+
    - **Snowflake** como data warehouse para armazenamento e organização dos dados.
+<img width="296" alt="image" src="https://github.com/user-attachments/assets/2b869be9-d44d-4a3f-af41-8d3b15de226f">
+
    - **dbt Cloud** para transformação e estruturação dos dados em múltiplas camadas (Medallion Architecture: bronze, silver e gold).
+<img width="886" alt="image" src="https://github.com/user-attachments/assets/f556cc05-bbeb-4b0e-be2e-3810d9c0396d">
+
    - **Great Expectations** para testes de qualidade e validação dos dados.
    - **Domo** para visualização dos dados e criação de relatórios interativos.
+<img width="1062" alt="image" src="https://github.com/user-attachments/assets/a5c1eb3b-550d-4fa6-812a-46ec19514f8f">
 
 3. **Modelo de Dados**: Medallion Architecture com tabelas e views materializadas em Snowflake:
    - **Bronze (Raw)**: Dados brutos.
