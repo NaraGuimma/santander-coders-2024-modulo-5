@@ -5,7 +5,7 @@ select
     CAST(id as integer) as id,
     CAST(date as date) as review_date,
     CAST(reviewer_id as integer) as reviewer_id,
-    REPLACE(comments, '<bt/>', '') as comments
+    REPLACE(comments, '<br/>', '') as comments
 from {{ ref('reviews') }}
 where reviewer_id is not null
 and listing_id is not null
